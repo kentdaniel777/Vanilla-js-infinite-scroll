@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Anton', sans-serif;
+    background:whitesmoke;
+}
+
+h1{
+    text-align: center;
+    margin-top: 1.1rem;
+    margin-bottom: 0.9rem;
+    letter-spacing: 0.2rem;
+    font-size: 3rem;
+}
+
+.loader{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(245, 245, 245, 0.432);
+}
