@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
 
 html{
     margin: 0;
@@ -7,8 +9,9 @@ html{
 }
 
 body{
-    font-family: 'Anton', sans-serif;
+    font-family: 'Architects Daughter', cursive;
     background:whitesmoke;
+    color: rgb(37, 37, 37);
 }
 
 h1{
@@ -43,6 +46,30 @@ h1{
 
 .image-container img{
     width: 100%;
+    transition: filter 0.1s ease-in-out;
+}
+
+.image-container img:hover{
+    filter: brightness(0.9);
+}
+
+.error{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 2rem;
+    text-align: center;
+    width:300px;
+    border-radius: 42px;
+    background: rgb(255, 255, 255);
+    box-shadow:
+    0 8.6px 4.5px -44px rgba(0, 0, 0, 0.046),
+    0 16.6px 13.2px -44px rgba(0, 0, 0, 0.061),
+    0 24.6px 30.7px -44px rgba(0, 0, 0, 0.072),
+    0 34.2px 65.4px -44px rgba(0, 0, 0, 0.082),
+    0 50.1px 103.8px -44px rgba(0, 0, 0, 0.096),
+    0 100px 130px -44px rgba(0, 0, 0, 0.13)
 }
 
 @media (max-width:800px){
