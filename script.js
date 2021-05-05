@@ -8,18 +8,30 @@ const apiKey="UbXc2ciaLfuxlnPAazlz-tuGvJvASVi40LJp0BbvQHM";
 const unsplashAPI=`https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 
+// Set attribute helper function
+function setAttributes(element,attr){
+    for (const key in attr){
+        element.setAttribute(key,attr[key]);
+    }
+}
+
 // create elements for the DOM
 function displayPhotos(photosArray){
     photosArray.forEach((photo)=>{
         // add the <a> tag
         const item = document.createElement("a");
-        item.setAttribute("href", photo.links.html);
-        item.setAttribute("target","_blank");
+        setAttributes(item,{
+            "href":photo.links.html,
+            "target":"_blank"
+        });
+        
         // add the img
         const img = document.createElement('img');
-        img.setAttribute("src",photo.urls.regular);
-        img.setAttribute("title",photo.alt_description);
-        img.setAttribute("alt",photo.alt_description);
+        setAttributes(img,{
+            "src":photo.urls.regular,
+            "title":photo.alt_description,
+            "alt":photo.alt_description,
+        });
 
         // add the img in the <a> and both to the image container
         item.appendChild(img);
