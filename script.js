@@ -90,7 +90,7 @@ async function getPhotos(){
    
 }
 
-getPhotos();
+// getPhotos();
 window.addEventListener("scroll",()=>{
     if (window.scrollY+window.innerHeight>= document.body.offsetHeight -1000 && ready){
         console.log("get photos")
@@ -100,3 +100,9 @@ window.addEventListener("scroll",()=>{
     }
   
 })
+
+window.addEventListener('online', () => {error.hidden=true});
+window.addEventListener('offline', () => {
+    console.log("offline");
+    error.hidden=false
+});
