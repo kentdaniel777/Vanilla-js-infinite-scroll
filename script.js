@@ -1,18 +1,23 @@
 const imageContainer = document.getElementById('image-container');
-const loader= document.getElementById('loader')
 const error= document.getElementById('error');
+const errorBtn= document.getElementById('error-btn');
 
-
-let ready=false;
+let finishLoading=false;
 let imageLoaded=0;
 let totalImage=0;
 
 
+function removeErrorMessage(){
+    error.style.visibility="hidden";
+}
+function showErrorMessage(){
+    error.style.visibility="visible";
+}
 function createEmptytags(imageCount){
     const arr=[]
     for (let i=0; i<imageCount;i++){
         const item=document.createElement("div");
-        item.classList.add("item-container","loading")
+        item.classList.add("item-container","image-loading")
         imageContainer.appendChild(item);
         arr.push(item)
     }
@@ -27,14 +32,15 @@ function fillPhoto(item,photo){
         background-position: center center;
         background-size:cover;
     `;
-    item.classList.remove("loading")
+    item.classList.remove("image-loading")
 
  
 }
 
-async function getPhotos(imageCount=10){
+async function getPhotos(imageCount=18){
     const photosArray=createEmptytags(imageCount);
-
+    finishLoading=false;
+  
     for(let i = 0;i<imageCount;i++){
         const collections=(min,max)=>{return Math.floor(min+Math.random()*(max-min))};
 
@@ -46,7 +52,26 @@ async function getPhotos(imageCount=10){
         
 
     }
+    finishLoading=true;
     
    
+   
 }
-getPhotos(50)
+getPhotos()
+
+errorBtn.addEventListener("click",()=>{
+    removeErrorMessage();
+})
+
+window.addEventListener("scroll",()=>{
+    if (window.scrollY+window.innerHeight>= document.body.offsetHeight -500 && finishLoading){
+        getPhotos()
+    }
+})
+
+window.addEventListener("online",()=>{
+    removeErrorMessage();
+})
+window.addEventListener("offline",()=>{
+    showErrorMessage();
+})

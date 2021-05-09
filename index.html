@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinite scroll</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,11 +16,16 @@
         
         
     </div>
+    <div class="spinner" id="loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    <div class="error" id="error" >
+        
+        <p>you are offline :(</p>
+        <button class="error-btn" id="error-btn">OK</button>
 
-    <div class="error" id="error" hidden>
-        <img src="https://img.icons8.com/dotty/300/4a3933/facepalm.png"/>
-        <h2>Something went wrong ... :(</h2>
-        <p>check your internet connection</p>
     </div>
     <script src="script.js"></script>
 </body>
