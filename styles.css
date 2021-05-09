@@ -14,6 +14,7 @@ body{
     color: rgb(37, 37, 37);
 }
 
+/* TEXT */
 h1{
     text-align: center;
     margin-top: 1.1rem;
@@ -22,37 +23,51 @@ h1{
     font-size: 3rem;
 }
 
-.loader{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(245, 245, 245, 0.432);
+
+
+/* HELPER CLASS */
+.loading{
+    background: linear-gradient(-60deg, #f0f0f09f, #94939394, #9696968c, #8f8f8f79);
+	background-size: 400% 400%;
+    animation: loading-gradient 3s ease infinite;
 }
 
-.loader img{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
+
+
+
+
+
+/* MAIN STYLES */
 
 .image-container{
     width:100%;
-    max-width: 800px;
+    max-width: 1600px;
     margin: 10px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    align-items: center;
 }
 
-.image-container img{
-    width: 100%;
-    transition: filter 0.1s ease-in-out;
+
+
+.item-container{
+    opacity: 0.9;
+    height:30vh;
+    margin: 20px;
+    border-radius: 8px;
+    transition: opacity 0.2s ease-in-out;
+}
+.item-container::after{
+    
+}
+.item-container:hover{
+    opacity: 1;
 }
 
-.image-container img:hover{
-    filter: brightness(0.9);
-}
 
+
+
+/* MISC */
 .error{
     position: fixed;
     top: 50%;
@@ -72,7 +87,21 @@ h1{
     0 100px 130px -44px rgba(0, 0, 0, 0.13)
 }
 
+/* ANIMATION */
+@keyframes loading-gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
+
+/* MEDIA QUERIES */
 @media (max-width:800px){
     h1{
         font-size: 1.8rem;
