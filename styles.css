@@ -187,7 +187,8 @@ h1{
 
 /* MEDIA QUERIES */
 @media (max-width:800px){
-    h1{
-        font-size: 1.8rem;
-    }
+   .image-container{
+    grid-template-columns: repeat(auto-fit,  1fr);
+   }
+
 }
