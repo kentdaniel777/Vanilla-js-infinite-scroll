@@ -1,77 +1,116 @@
 const imageContainer = document.getElementById('image-container');
-const error= document.getElementById('error');
-const errorBtn= document.getElementById('error-btn');
+const error = document.getElementById('error');
+const errorBtn = document.getElementById('error-btn');
+const searchBtn = document.getElementById("search-btn");
+const searchBox = document.getElementById("search-box")
 
-let finishLoading=false;
-let imageLoaded=0;
-let totalImage=0;
+let finishLoading = false;
+let imageLoaded = 0;
+let totalImage = 0;
 
 
-function removeErrorMessage(){
-    error.style.visibility="hidden";
-}
-function showErrorMessage(){
-    error.style.visibility="visible";
-}
-function createEmptytags(imageCount){
-    const arr=[]
-    for (let i=0; i<imageCount;i++){
-        const item=document.createElement("div");
-        item.classList.add("item-container","image-loading")
+let imagePage = 1;
+const apiKey = "UbXc2ciaLfuxlnPAazlz-tuGvJvASVi40LJp0BbvQHM";
+let query = "dog" // default query
+let unsplashAPI = `https://api.unsplash.com/search/photos/?client_id=${apiKey}&query=${query}&page=${imagePage}`;
+
+
+
+// MAIN FUNCTIONS
+function createEmptytags(imageCount = 10) {
+    const arr = []
+    for (let i = 0; i < imageCount; i++) {
+        const item = document.createElement("div");
+        item.classList.add("item-container", "image-loading")
         imageContainer.appendChild(item);
         arr.push(item)
     }
     return arr;
 }
 
-function fillPhoto(item,photo){
-    
-    
-    item.style.cssText+=`
-        background: url(${photo.url});
+function fillPhoto(photosArray, photos) {
+
+    let photosIndex = 0
+    photosArray.map((item) => {
+        item.style.cssText += `
+        background: url(${photos[photosIndex].urls.small});
         background-position: center center;
         background-size:cover;
     `;
-    item.classList.remove("image-loading")
+        item.classList.remove("image-loading")
+        photosIndex++;
+    })
 
- 
 }
 
-async function getPhotos(imageCount=18){
-    const photosArray=createEmptytags(imageCount);
-    finishLoading=false;
-  
-    for(let i = 0;i<imageCount;i++){
-        const collections=(min,max)=>{return Math.floor(min+Math.random()*(max-min))};
+async function getPhotos(query) {
+    const photosArray = createEmptytags();
+    finishLoading = false;
+    let unsplashAPI = `https://api.unsplash.com/search/photos/?client_id=${apiKey}&query=${query}&page=${imagePage}`;
 
-        let URL=`https://source.unsplash.com/collection/${collections(300,500)}/${i}/`;
-       
-        const photo =await fetch(URL);
-        
-        fillPhoto(photosArray[i],photo)
-        
+    const response = await fetch(unsplashAPI);
+    const data = await response.json()
+    const photos = data.results;
 
+    fillPhoto(photosArray, photos)
+
+    finishLoading = true;
+    imagePage++;
+
+
+}
+
+function clearSearchResults() {
+    imageContainer.innerHTML = "";
+}
+
+function returnResults(query){
+    if (query) {
+        clearSearchResults();
+        getPhotos(query)
     }
-    finishLoading=true;
-    
-   
-   
 }
-getPhotos()
 
-errorBtn.addEventListener("click",()=>{
+// MISC
+
+// error messages
+function removeErrorMessage() {
+    error.style.visibility = "hidden";
+}
+
+function showErrorMessage() {
+    error.style.visibility = "visible";
+}
+errorBtn.addEventListener("click", () => {
     removeErrorMessage();
 })
 
-window.addEventListener("scroll",()=>{
-    if (window.scrollY+window.innerHeight>= document.body.offsetHeight -500 && finishLoading){
-        getPhotos()
-    }
-})
-
-window.addEventListener("online",()=>{
+// inform connection status if offline
+window.addEventListener("online", () => {
     removeErrorMessage();
 })
-window.addEventListener("offline",()=>{
+window.addEventListener("offline", () => {
     showErrorMessage();
+})
+
+
+
+// search DOMS
+searchBtn.addEventListener("click", () => {
+    query = searchBox.value;
+    returnResults(query)
+})
+searchBox.addEventListener("keyup",(e)=>{
+    if (e.key === "Enter"){// the ENTER key
+        console.log("clicked")
+        searchBtn.click();
+    }
+})
+
+
+// INFINITE SCROLL TRIGGER
+window.addEventListener("scroll", () => {
+    if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 500 && finishLoading) {
+        getPhotos(query)
+    }
 })
